@@ -10,6 +10,8 @@
     "@types/node": "^12.12.53",
     "@types/react": "^16.9.44",
     "@types/react-dom": "^16.9.8",
+    "axios": "^0.19.2",
+    "dotenv": "^8.2.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
@@ -38,6 +40,7 @@
     ]
   },
   "devDependencies": {
+    "@types/axios": "^0.14.0",
     "@typescript-eslint/eslint-plugin": "^3.7.1",
     "@typescript-eslint/parser": "^3.7.1",
     "eslint-config-prettier": "^6.11.0",
