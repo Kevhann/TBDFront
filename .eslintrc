@@ -1,29 +1,105 @@
 {
-  "extends": [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/recommended-requiring-type-checking",
-    "plugin:prettier/recommended"
-  ],
-  "plugins": ["@typescript-eslint"],
-  "env": {
-    "node": true,
-    "es6": true
+  "parser": "@typescript-eslint/parser",
+  "root": true,
+  "parserOptions": {
+    "project": "./tsconfig.json"
   },
+  "plugins": [
+    "@typescript-eslint",
+    "prettier",
+    "import",
+    "jest",
+    "filenames"
+  ],
+  "extends": [
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "plugin:jest/recommended",
+    "prettier"
+  ],
   "rules": {
-    "@typescript-eslint/semi": ["error"],
-    "@typescript-eslint/no-explicit-any": 2,
-    "@typescript-eslint/explicit-function-return-type": 0,
+    "filenames/match-regex": [
+      2,
+      "^[a-z0-9-._]+$",
+      true
+    ],
+    "no-console": "error",
+    "prettier/prettier": "error",
+    "require-atomic-updates": "off",
+    "no-constant-condition": "off",
+    "no-prototype-builtins": "off",
+    "no-unreachable": "error",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/no-var-requires": "error",
+    "@typescript-eslint/no-floating-promises": "error",
     "@typescript-eslint/no-unused-vars": [
-      "error",
+      2,
       {
+        "ignoreRestSiblings": true,
         "argsIgnorePattern": "^_"
       }
     ],
-    "no-case-declarations": 0
+    "@typescript-eslint/camelcase": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-use-before-define": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/ban-ts-ignore": "off",
+    "jest/valid-expect-in-promise": "off",
+    "jest/no-identical-title": "off",
+    "jest/no-try-expect": "off",
+    "jest/expect-expect": "off",
+    "jest/no-standalone-expect": "off",
+    "jest/valid-describe": "off",
+    "import/no-cycle": "error",
+    "import/no-useless-path-segments": "error",
+    "import/no-self-import": "error",
+    "import/no-mutable-exports": "error",
+    "import/no-deprecated": "error",
+    "import/no-default-export": "error",
+    "import/export": "error",
+    "react/no-unescaped-entities": [
+      0
+    ],
+    "react/jsx-no-target-blank": [
+      0
+    ],
+    "react/no-deprecated": [
+      1
+    ],
+    "react/jsx-boolean-value": [
+      "error",
+      "never"
+    ],
+    "react/prop-types": [
+      0
+    ],
+    "no-restricted-imports": [
+      "error",
+      {
+        "name": "@testing-library/dom",
+        "importNames": [
+          "fireEvent"
+        ],
+        "message": "Please use @testing-library/react instead."
+      }
+    ]
   },
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "project": "./tsconfig.json"
+  "globals": {
+    "user": false,
+    "fixture": false
+  },
+  "env": {
+    "es6": true,
+    "node": true,
+    "browser": true,
+    "jest/globals": true
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   }
 }
