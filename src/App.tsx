@@ -1,19 +1,31 @@
 import * as React from 'react';
-import 'fontsource-roboto';
-import axios from 'axios';
-import { Button } from '@material-ui/core';
-import { HOST } from './config';
+import { Container } from 'semantic-ui-react';
+import { gaussian } from './blurs/gaussian';
+import { Canvas } from './canvas';
+import { FormBase } from './components/form-base';
+import { randomNoise } from './terrain';
+import { Config } from './typings/types';
+
 export const App = () => {
-  const [state, setState] = React.useState('working?');
-  const handleTestClick = async () => {
-    const res = await axios.get(`/test`);
-    setState(res.data.name);
+  const initial: Config = {
+    dimension: 512,
+    roughness: 1,
+    mode: 'create'
+  };
+
+  const [config, setConfig] = React.useState<Config>(initial);
+  const [map, setMap] = React.useState<number[][]>(
+    randomNoise(initial.dimension, initial.dimension)
+  );
+
+  const refresh = () => {
+    setMap(gaussian(randomNoise(config.dimension, config.dimension), 2, 5));
   };
   return (
-    <>
-      <div>Hello</div>
-      <Button onClick={handleTestClick}>Test</Button>
-      <div>{state}</div>
-    </>
+    <Container style={{ marginTop: '15px' }}>
+      <FormBase config={config} onChange={setConfig} refresh={refresh} />
+      {/* <SelectForm config={config} onChange={setConfig} /> */}
+      <Canvas config={config} map={map} />
+    </Container>
   );
 };
