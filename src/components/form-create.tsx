@@ -1,69 +1,58 @@
 import * as React from 'react';
-import { Select, Header, Input, Table } from 'semantic-ui-react';
-import { generations } from '../typings/enums';
-import { Config, FormProps } from '../typings/types';
-import { Spacer, Label } from './layout';
+import { Select, Header, Input, Table, Grid } from 'semantic-ui-react';
+import { CREATION_MODES } from '../typings/enums';
+import { Creation, CreationModes } from '../typings/types';
+import { FormProps } from '../typings/types';
 
-export const CreateForm = ({ config, onChange }: FormProps) => {
+export type Props = {
+  onChange: (value: Creation) => void;
+  config: Creation;
+};
+
+export const CreateForm = ({ config, onChange }: Props) => {
+  const getOptions = () => {
+    return (
+      <Grid.Row>
+        <Grid.Column>Roughness</Grid.Column>
+        <Grid.Column>
+          <Input
+            value={config.roughness}
+            type="number"
+            onChange={value => onChange({ ...config, roughness: Number(value.target.value) })}
+          />
+        </Grid.Column>
+      </Grid.Row>
+    );
+  };
+
   return (
     <>
       <Header>Create New Image</Header>
+      <Grid columns={2}>
+        <Grid.Row>
+          <Grid.Column>Dimensions</Grid.Column>
+          <Grid.Column>
+            <Input
+              value={config.dimension}
+              type="number"
+              onChange={value => onChange({ ...config, dimension: Number(value.target.value) })}
+            />
+          </Grid.Column>
+        </Grid.Row>
 
-      <Table>
-        <Table.Body>
-          <Table.Row>
-            <Table.Cell>Dimensions</Table.Cell>
-            <Table.Cell>
-              <Input
-                value={config.dimension}
-                type="number"
-                onChange={value => onChange({ ...config, dimension: Number(value.target.value) })}
-              />
-            </Table.Cell>
-          </Table.Row>
-
-          <Table.Row>
-            <Table.Cell>Roughness</Table.Cell>
-            <Table.Cell>
-              <Input
-                value={config.roughness}
-                type="number"
-                onChange={value => onChange({ ...config, roughness: Number(value.target.value) })}
-              />
-            </Table.Cell>
-          </Table.Row>
-        </Table.Body>
-      </Table>
-
-      <Spacer>
-        <Label>Dimensions</Label>
-        <Input
-          value={config.dimension}
-          type="number"
-          onChange={value => onChange({ ...config, dimension: Number(value.target.value) })}
-          width="2"
-        />
-      </Spacer>
-      <Spacer>
-        <Label>Roughness </Label>
-        <Input
-          value={config.roughness}
-          type="number"
-          onChange={value => onChange({ ...config, roughness: Number(value.target.value) })}
-          width="2"
-        />
-      </Spacer>
-      <Spacer>
-        <Label>Mode </Label>
-        <Select
-          options={generations.map(g => ({ value: g, text: g }))}
-          value={config.action}
-          onChange={(_a, data) => {
-            onChange({ ...config, action: data.value });
-          }}
-          opti
-        />
-      </Spacer>
+        <Grid.Row>
+          <Grid.Column>Mode</Grid.Column>
+          <Grid.Column>
+            <Select
+              options={CREATION_MODES.map(g => ({ value: g, text: g }))}
+              value={config.mode}
+              onChange={(_a, data) => {
+                onChange({ ...config, mode: data.value as CreationModes });
+              }}
+            />
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
     </>
   );
 };

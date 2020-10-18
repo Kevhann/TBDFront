@@ -19,7 +19,6 @@ export const Canvas = ({ bitMap }: Props) => {
   const ref = React.useRef<HTMLCanvasElement>(null);
 
   const dimension = bitMap.length;
-  console.log('dimension:', dimension);
 
   const block = 1;
 

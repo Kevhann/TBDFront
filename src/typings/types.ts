@@ -1,19 +1,24 @@
-import { Action } from './enums';
+import { CREATION_MODES, MODIFICATION_MODES } from './enums';
 
 export type Color = { red: number; green: number; blue: number };
-type Mode = 'create' | 'modify';
-export type Config = { mode: Mode; dimension: number; roughness: number; action: Action };
+
+export type CreationModes = typeof CREATION_MODES[number];
+export type ModificationModes = typeof MODIFICATION_MODES[number];
+
+export type Creation = { dimension: number; roughness: number; mode: CreationModes };
+export type Modification = { range: number; standardDeviation: number; mode: ModificationModes };
+
+export type Config = { creation: Creation; modification: Modification };
 
 export type BaseFormProps = {
-  refresh: () => void;
+  create: () => void;
+  modify: () => void;
   onDownload?: () => void;
 } & FormProps;
 
 export type FormProps = {
-  onChange: (value: any) => void;
+  onChange: (value: Config) => void;
   config: Config;
 };
 
 export type BitMap = number[][];
-
-export type ActionMap = { [key in Action]: (...inputs: any) => BitMap };

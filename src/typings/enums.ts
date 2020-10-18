@@ -1,4 +1,2 @@
-export type Action = typeof generations[number] | typeof modifications[number];
-
-export const generations = ['random', 'smooth', 'neighbour'] as const;
-export const modifications = ['gaussian'] as const;
+export const CREATION_MODES = ['random', 'smooth', 'neighbour'] as const;
+export const MODIFICATION_MODES = ['gaussian'] as const;
