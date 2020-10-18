@@ -13,12 +13,12 @@ const colorBW = (pixel: number) => {
   return `rgb(${value},${value},${value})`;
 };
 
-type Props = { map: BitMap };
+type Props = { bitMap: BitMap };
 
-export const Canvas = ({ map }: Props) => {
+export const Canvas = ({ bitMap }: Props) => {
   const ref = React.useRef<HTMLCanvasElement>(null);
 
-  const dimension = map.length;
+  const dimension = bitMap.length;
   console.log('dimension:', dimension);
 
   const block = 1;
@@ -39,13 +39,13 @@ export const Canvas = ({ map }: Props) => {
       return;
     }
 
-    map.forEach((row, j) => {
+    bitMap.forEach((row, j) => {
       row.forEach((pixel, i) => {
         ctx.fillStyle = colorBW(pixel);
         ctx.fillRect(i * block, j * block, i * block + block, i * block + block);
       });
     });
-  }, [map]);
+  }, [bitMap]);
 
   return (
     <>

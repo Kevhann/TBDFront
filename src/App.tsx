@@ -5,7 +5,7 @@ import { Canvas } from './canvas';
 import { FormBase } from './components/form-base';
 import { randomNoise, turbulatedBW } from './terrain';
 import { generateSmooth } from './terrain-generation';
-import { ActionMap, Config } from './typings/types';
+import { ActionMap, BitMap, Config } from './typings/types';
 
 const initial: Config = {
   dimension: 512,
@@ -16,7 +16,7 @@ const initial: Config = {
 
 export const App = () => {
   const [config, setConfig] = React.useState<Config>(initial);
-  const [map, setMap] = React.useState<number[][]>(
+  const [bitMap, setBitMap] = React.useState<BitMap>(
     randomNoise(initial.dimension, initial.dimension)
   );
 
@@ -25,21 +25,21 @@ export const App = () => {
 
     switch (config.action) {
       case 'gaussian': {
-        setMap(gaussian(map, 2, 5));
+        setBitMap(gaussian(bitMap, 2, 5));
         break;
       }
       case 'neighbour': {
-        setMap(turbulatedBW(map, config.roughness));
+        setBitMap(turbulatedBW(bitMap, config.roughness));
 
         break;
       }
       case 'random': {
-        setMap(randomNoise(config.dimension, config.roughness));
+        setBitMap(randomNoise(config.dimension, config.dimension));
 
         break;
       }
       case 'smooth': {
-        setMap(generateSmooth(config.dimension, config.roughness));
+        setBitMap(generateSmooth(config.dimension, config.roughness));
         break;
       }
       default: {
@@ -50,7 +50,7 @@ export const App = () => {
   return (
     <Container style={{ marginTop: '15px' }}>
       <FormBase config={config} onChange={setConfig} refresh={refresh} />
-      <Canvas map={map} />
+      <Canvas bitMap={bitMap} />
     </Container>
   );
 };
