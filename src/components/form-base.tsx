@@ -7,21 +7,6 @@ import { ModifyForm } from './form-modify';
 import { Spacer, Box } from './layout';
 
 export const FormBase = ({ config, onChange, refresh }: BaseFormProps) => {
-  const handleModeChange = () => {
-    onChange({ ...config, mode: 'modify' });
-  };
-
-  const getContent = () => {
-    if (config.mode === 'create') {
-      return <CreateForm config={config} onChange={onChange} />;
-    }
-
-    if (config.mode === 'modify') {
-      return <ModifyForm config={config} onChange={onChange} />;
-    }
-    return <div>This is not supposed to happen</div>;
-  };
-
   const handleRefresh = () => {
     refresh();
   };
@@ -47,14 +32,18 @@ export const FormBase = ({ config, onChange, refresh }: BaseFormProps) => {
   return (
     <>
       <Box>
-        {getContent()}
-
+        <CreateForm config={config} onChange={onChange} />
         <Spacer>
-          <Button onClick={onDownload}>Download</Button>
-          <Button onClick={handleModeChange}>Modify</Button>
           <Button onClick={handleRefresh}>Generate</Button>
         </Spacer>
       </Box>
+      <Box>
+        <ModifyForm config={config} onChange={onChange} />
+        <Spacer>
+          <Button onClick={handleRefresh}>Apply</Button>
+        </Spacer>
+      </Box>
+      <Button onClick={onDownload}>Download</Button>
     </>
   );
 };

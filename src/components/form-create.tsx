@@ -7,7 +7,7 @@ import { Spacer, Label } from './layout';
 export const CreateForm = ({ config, onChange }: FormProps) => {
   return (
     <>
-      <Header>Create image</Header>
+      <Header>Create New Image</Header>
 
       <Spacer>
         <Label>Dimensions</Label>
@@ -27,16 +27,17 @@ export const CreateForm = ({ config, onChange }: FormProps) => {
           width="2"
         />
       </Spacer>
-      {/* <Spacer>
+      <Spacer>
         <Label>Mode </Label>
         <Select
-        options={generations.map(g => ({value: g, text: g}))}
-          value={input.roughness}
-          type="number"
-          onChange={value => setInput({ ...config, action: value. })}
+          options={generations.map(g => ({ value: g, text: g }))}
+          value={config.action}
+          onChange={(_a, data) => {
+            onChange({ ...config, action: data.value });
+          }}
           opti
         />
-      </Spacer> */}
+      </Spacer>
     </>
   );
 };
