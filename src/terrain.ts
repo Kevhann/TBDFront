@@ -1,5 +1,6 @@
 import { BitMap, Color } from './typings/types';
 
+const random = () => Math.floor(Math.random() * 256);
 const turbulate = (x: number, y: number, rounds: number, map: BitMap) => {
   const smoothingRounds = rounds;
   let value = 0.0;
@@ -44,7 +45,7 @@ export const randomNoise = (width: number, height: number): BitMap =>
     .map(_i =>
       Array(width)
         .fill(0)
-        .map(_j => Math.random())
+        .map(_j => random())
     );
 
 export const turbulatedColor = (width: number, height: number, rounds = 3) => {

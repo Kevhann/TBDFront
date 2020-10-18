@@ -11,18 +11,28 @@ export type Props = {
 
 export const CreateForm = ({ config, onChange }: Props) => {
   const getOptions = () => {
-    return (
-      <Grid.Row>
-        <Grid.Column>Roughness</Grid.Column>
-        <Grid.Column>
-          <Input
-            value={config.roughness}
-            type="number"
-            onChange={value => onChange({ ...config, roughness: Number(value.target.value) })}
-          />
-        </Grid.Column>
-      </Grid.Row>
-    );
+    switch (config.mode) {
+      case 'random': {
+        return;
+      }
+      case 'smooth': {
+        return (
+          <Grid.Row>
+            <Grid.Column>Roughness</Grid.Column>
+            <Grid.Column>
+              <Input
+                value={config.roughness}
+                type="number"
+                onChange={value => onChange({ ...config, roughness: Number(value.target.value) })}
+              />
+            </Grid.Column>
+          </Grid.Row>
+        );
+      }
+      default: {
+        return <div>Something went wrongs</div>;
+      }
+    }
   };
 
   return (
@@ -52,6 +62,7 @@ export const CreateForm = ({ config, onChange }: Props) => {
             />
           </Grid.Column>
         </Grid.Row>
+        {getOptions()}
       </Grid>
     </>
   );

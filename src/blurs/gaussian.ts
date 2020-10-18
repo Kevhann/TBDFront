@@ -1,7 +1,7 @@
 import { BitMap } from '../typings/types';
 
 export const gaussian = (map: BitMap, sd: number, range = 3) => {
-  const size = map.length;
+  const size = map.length - 1;
   const first: BitMap = Array(size + 1)
     .fill(0)
     .map(_a => Array(size + 1).fill(0));
@@ -21,29 +21,31 @@ export const gaussian = (map: BitMap, sd: number, range = 3) => {
     convolution[range + i] = product;
   }
 
+  const sum = convolution.reduce((acc, curr) => acc + curr, 0);
+
   // Blur vertical with wrap-around
-  for (let i = 0; i < size; i++) {
-    for (let j = 0; j < size; j++) {
+  for (let i = 0; i <= size; i++) {
+    for (let j = 0; j <= size; j++) {
       let value = 0;
       for (let k = -range; k <= range; k++) {
         const index = (j + k + size) % size;
         value += convolution[k + range] * map[index][i];
       }
 
-      first[j][i] = value;
+      first[j][i] = value / sum;
     }
   }
 
   // Blur horizontal with wrap-around
-  for (let i = 0; i < size; i++) {
-    for (let j = 0; j < size; j++) {
+  for (let i = 0; i <= size; i++) {
+    for (let j = 0; j <= size; j++) {
       let value = 0;
       for (let k = -range; k <= range; k++) {
         const index = (j + k + size) % size;
         value += convolution[k + range] * first[i][index];
       }
 
-      res[j][i] = value;
+      res[i][j] = value / sum;
     }
   }
 

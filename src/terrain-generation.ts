@@ -1,14 +1,16 @@
 import { BitMap } from './typings/types';
 
+const random = () => Math.floor(Math.random() * 256);
+
 // Random function to offset the center
 const displace = (dimension: number, amount: number, roughness: number) => {
   const max = (amount / (dimension * 2)) * roughness;
-  return (Math.random() - 0.5) * max;
+  return (random() - 128) * max;
 };
 
 // Normalize the value to make sure its within bounds
 const normalize = (value: number) => {
-  return Math.max(Math.min(value, 1), 0);
+  return Math.max(Math.min(value, 255), 0);
   // return value;
 };
 
@@ -90,20 +92,20 @@ export const generateSmooth = (size: number, roughness: number) => {
     .map(_a =>
       Array(size + 1)
         .fill(0)
-        .map(_b => Math.random())
+        .map(_b => random())
     );
 
   // top left
-  map[0][0] = Math.random();
+  map[0][0] = random();
 
   // bottom left
-  map[0][size] = Math.random();
+  map[0][size] = random();
 
   // top right
-  map[size][0] = Math.random();
+  map[size][0] = random();
 
   // bottom right
-  map[size][size] = Math.random();
+  map[size][size] = random();
 
   // Center
   // map[size / 2][size / 2] = normalize(
@@ -111,7 +113,7 @@ export const generateSmooth = (size: number, roughness: number) => {
   // );
 
   const half = Math.floor(size / 2);
-  map[half][half] = Math.random();
+  map[half][half] = random();
 
   midpointDisplacment(map, size, roughness);
   return map;

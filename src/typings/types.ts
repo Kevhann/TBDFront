@@ -5,7 +5,11 @@ export type Color = { red: number; green: number; blue: number };
 export type CreationModes = typeof CREATION_MODES[number];
 export type ModificationModes = typeof MODIFICATION_MODES[number];
 
-export type Creation = { dimension: number; roughness: number; mode: CreationModes };
+export type Creation = {
+  dimension: number;
+  roughness: number;
+  mode: CreationModes;
+};
 export type Modification = {
   range: number;
   standardDeviation: number;

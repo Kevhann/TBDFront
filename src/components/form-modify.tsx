@@ -15,18 +15,30 @@ export const ModifyForm = ({ config, onChange }: Props) => {
     switch (config.mode) {
       case 'gaussian': {
         return (
-          <Grid.Row>
-            <Grid.Column>Standard Deviation</Grid.Column>
-            <Grid.Column>
-              <Input
-                value={config.standardDeviation}
-                type="number"
-                onChange={value =>
-                  onChange({ ...config, standardDeviation: Number(value.target.value) })
-                }
-              />
-            </Grid.Column>
-          </Grid.Row>
+          <>
+            <Grid.Row>
+              <Grid.Column>Standard Deviation</Grid.Column>
+              <Grid.Column>
+                <Input
+                  value={config.standardDeviation}
+                  type="number"
+                  onChange={value =>
+                    onChange({ ...config, standardDeviation: Number(value.target.value) })
+                  }
+                />
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
+              <Grid.Column>Blur Range</Grid.Column>
+              <Grid.Column>
+                <Input
+                  value={config.range}
+                  type="number"
+                  onChange={value => onChange({ ...config, range: Number(value.target.value) })}
+                />
+              </Grid.Column>
+            </Grid.Row>
+          </>
         );
       }
       case 'neighbour': {

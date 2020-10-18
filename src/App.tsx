@@ -13,7 +13,12 @@ const initial: Config = {
     roughness: 1,
     mode: 'random'
   },
-  modification: { mode: 'gaussian', range: 3, standardDeviation: 2, roughness: 1 }
+  modification: {
+    mode: 'gaussian',
+    range: 3,
+    standardDeviation: 2,
+    roughness: 1
+  }
 };
 
 export const App = () => {

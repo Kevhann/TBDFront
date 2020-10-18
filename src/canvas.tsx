@@ -8,10 +8,7 @@ const colorString = (pixel: Color) => {
   return `rgb(${red},${green},${blue})`;
 };
 
-const colorBW = (pixel: number) => {
-  const value = Math.floor(pixel * 255);
-  return `rgb(${value},${value},${value})`;
-};
+const colorBW = (pixel: number) => `rgb(${pixel},${pixel},${pixel})`;
 
 type Props = { bitMap: BitMap };
 
@@ -27,7 +24,6 @@ export const Canvas = ({ bitMap }: Props) => {
 
     if (!canvas) {
       console.log('canvas missing');
-
       return;
     }
 
