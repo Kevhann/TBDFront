@@ -29,6 +29,9 @@ export const ModifyForm = ({ config, onChange }: Props) => {
           </Grid.Row>
         );
       }
+      case 'neighbour': {
+        return;
+      }
       default: {
         return <div>Something went wrongs</div>;
       }

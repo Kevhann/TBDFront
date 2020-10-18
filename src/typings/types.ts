@@ -6,7 +6,12 @@ export type CreationModes = typeof CREATION_MODES[number];
 export type ModificationModes = typeof MODIFICATION_MODES[number];
 
 export type Creation = { dimension: number; roughness: number; mode: CreationModes };
-export type Modification = { range: number; standardDeviation: number; mode: ModificationModes };
+export type Modification = {
+  range: number;
+  standardDeviation: number;
+  mode: ModificationModes;
+  roughness: number;
+};
 
 export type Config = { creation: Creation; modification: Modification };
 

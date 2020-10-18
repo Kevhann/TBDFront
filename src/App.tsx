@@ -13,7 +13,7 @@ const initial: Config = {
     roughness: 1,
     mode: 'random'
   },
-  modification: { mode: 'gaussian', range: 3, standardDeviation: 2 }
+  modification: { mode: 'gaussian', range: 3, standardDeviation: 2, roughness: 1 }
 };
 
 export const App = () => {
@@ -26,13 +26,8 @@ export const App = () => {
     const creationConfig = config.creation;
 
     switch (creationConfig.mode) {
-      case 'neighbour': {
-        setBitMap(turbulatedBW(bitMap, creationConfig.roughness));
-        break;
-      }
       case 'random': {
         setBitMap(randomNoise(creationConfig.dimension, creationConfig.dimension));
-
         break;
       }
       case 'smooth': {
@@ -52,6 +47,12 @@ export const App = () => {
         setBitMap(gaussian(bitMap, modificationConfig.standardDeviation, modificationConfig.range));
         break;
       }
+
+      case 'neighbour': {
+        setBitMap(turbulatedBW(bitMap, modificationConfig.roughness));
+        break;
+      }
+
       default: {
       }
     }

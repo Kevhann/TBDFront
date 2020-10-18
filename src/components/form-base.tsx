@@ -27,7 +27,7 @@ export const FormBase = ({ config, onChange, create, modify }: BaseFormProps) =>
   };
   return (
     <>
-      <Segment compact>
+      <Segment>
         <Grid columns={2} divided>
           <Grid.Column>
             <CreateForm
