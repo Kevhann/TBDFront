@@ -1,8 +1,5 @@
 import * as React from 'react';
-import { gaussian } from './blurs/gaussian';
-import { randomNoise, turbulatedBW } from './terrain';
-import { generate } from './terrain-generation';
-import { Color, Config } from './typings/types';
+import { BitMap, Color, Config } from './typings/types';
 
 const colorString = (pixel: Color) => {
   const red = Math.floor(pixel.red * 255);
@@ -16,16 +13,17 @@ const colorBW = (pixel: number) => {
   return `rgb(${value},${value},${value})`;
 };
 
-type Props = { config: Config; map: number[][] };
+type Props = { map: BitMap };
 
-export const Canvas = (props: Props) => {
-  const { dimension, roughness } = props.config;
-
+export const Canvas = ({ map }: Props) => {
   const ref = React.useRef<HTMLCanvasElement>(null);
+
+  const dimension = map.length;
+  console.log('dimension:', dimension);
+
   const block = 1;
 
   React.useEffect(() => {
-    // const debounced = () => {
     const canvas = ref.current;
 
     if (!canvas) {
@@ -41,20 +39,17 @@ export const Canvas = (props: Props) => {
       return;
     }
 
-    props.map.forEach((row, j) => {
+    map.forEach((row, j) => {
       row.forEach((pixel, i) => {
         ctx.fillStyle = colorBW(pixel);
         ctx.fillRect(i * block, j * block, i * block + block, i * block + block);
       });
     });
-    // };
-    // const wait = setTimeout(debounced, 1000);
-    // return () => clearTimeout(wait);
-  }, [props.map]);
+  }, [map]);
 
   return (
     <>
-      <canvas ref={ref} height={dimension} width={dimension}></canvas>
+      <canvas id="canvas" ref={ref} height={dimension} width={dimension}></canvas>
     </>
   );
 };

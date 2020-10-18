@@ -6,8 +6,13 @@ TODOS / Ideas
   * Upload
   * Draw
   * More Fun Randomness
+  * Premade stuff
 
 
 * Modification
   * Rotation
   * Whatnot
+
+* Misc
+  * Download
+  * Upload

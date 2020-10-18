@@ -1,10 +1,12 @@
-export const gaussian = (map: number[][], sd: number, range = 3) => {
+import { BitMap } from '../typings/types';
+
+export const gaussian = (map: BitMap, sd: number, range = 3) => {
   const size = map.length;
-  const first = Array(size + 1)
+  const first: BitMap = Array(size + 1)
     .fill(0)
     .map(_a => Array(size + 1).fill(0));
 
-  const res = Array(size + 1)
+  const res: BitMap = Array(size + 1)
     .fill(0)
     .map(_a => Array(size + 1).fill(0));
 

@@ -1,3 +1,5 @@
+import { BitMap } from './typings/types';
+
 // Random function to offset the center
 const displace = (dimension: number, amount: number, roughness: number) => {
   const max = (amount / (dimension * 2)) * roughness;
@@ -10,7 +12,7 @@ const normalize = (value: number) => {
   // return value;
 };
 
-const midpointDisplacment = (map: number[][], size: number, roughness: number) => {
+const midpointDisplacment = (map: BitMap, size: number, roughness: number) => {
   let plot = size;
 
   while (plot > 1) {
@@ -82,7 +84,7 @@ const midpointDisplacment = (map: number[][], size: number, roughness: number) =
 };
 
 // Starts off the map generation, seeds the first 4 corners
-export const generate = (size: number, roughness: number) => {
+export const generateSmooth = (size: number, roughness: number) => {
   const map = Array(size + 1)
     .fill(0)
     .map(_a =>
@@ -119,7 +121,7 @@ export class TerrainGenerator {
   private mapDimension: number;
   private unitSize: number;
   private roughness: number;
-  private map: number[][];
+  private map: BitMap;
 
   constructor(mapDimension = 256, unitSize = 1, roughness = 8) {
     this.mapDimension = mapDimension;
